@@ -161,8 +161,9 @@ def setup(env, cfg):
         say("   e.g. jane-doe.jpg, and rerun. Anyone without a photo gets their initials.")
     env["CRUSTDATA_API_KEY"] = ck
 
-    new_ids = sorted(c["_id"] for c in chosen)
-    if cfg and (sorted(c["id"] for c in campaigns_of(cfg)) != new_ids or cfg.get("conference") != conf):
+    # Adding a campaign to the same event keeps everything; a different event starts clean.
+    old_ids = {c["id"] for c in campaigns_of(cfg)}
+    if cfg and (cfg.get("conference") != conf or not old_ids & {c["_id"] for c in chosen}):
         archive_previous_event()
         for k in ("you_senders", "buyer"):
             cfg.pop(k, None)
@@ -288,10 +289,15 @@ class Lemlist:
         the first page reaching past `since`, or an empty one. A short page isn't the
         end: Lemlist can serve one mid-stream."""
         ids = {}
-        for kind in ("linkedinReplied", "emailsReplied"):
+        for kind in ("linkedinReplied", "emailsReplied", "emailsExternalReceived"):
             offset = 0
             while True:
-                batch = self.get("/activities", {"type": kind, "limit": 100, "offset": offset})
+                try:
+                    batch = self.get("/activities", {"type": kind, "limit": 100, "offset": offset})
+                except urllib.error.HTTPError as e:
+                    if e.code == 400 and kind == "emailsExternalReceived":
+                        break  # not every account's API offers this type
+                    raise
                 if not batch or offset >= 50_000:
                     break
                 for a in batch:
@@ -404,10 +410,11 @@ def pull(ll, cfg, review=False):
         rows = ll.get(f"/campaigns/{camp['id']}/export/leads", {"state": "all", "format": "json"})
         say(f"  {len(rows)} leads")
         for lead in rows:  # the same person can be in two campaigns for one event
-            ident = (lead.get("email") or "").lower() or norm_li(lead.get("linkedinUrl")) or lead["_id"]
-            if ident not in seen_leads:
-                seen_leads.add(ident)
+            idents = {x for x in ((lead.get("email") or "").strip().lower(),
+                                  norm_li(lead.get("linkedinUrl"))) if x} or {lead["_id"]}
+            if not idents & seen_leads:
                 leads.append(lead)
+            seen_leads |= idents
     listing = ll.inbox_listing(team.get("userIds") or [])
     by_email, by_li, listed = {}, {}, {}
     for t in listing:
@@ -722,9 +729,14 @@ def transcript(person, cfg):
     return "\n\n".join(rows)
 
 
-def thread_sig(person):
+def thread_sig(person, cfg):
     parts = [[m["id"], m["at"], m["from"], m["sender"], m["subject"], m["text"]] for m in person["messages"]]
-    return hashlib.sha1(json.dumps(parts).encode()).hexdigest()[:12]
+    return hashlib.sha1(json.dumps([sorted(cfg.get("you_senders") or []), parts]).encode()).hexdigest()[:12]
+
+
+def legacy_sig(person):
+    """The signature the first release saved (message ids only), so its cards aren't redrafted."""
+    return hashlib.sha1(json.dumps([m["id"] for m in person["messages"]]).encode()).hexdigest()[:12]
 
 
 def sender_counts(people):
@@ -779,11 +791,13 @@ def draft_cards(people, cfg, claude):
         replied_unreadable = not msgs and "Replied" in person["lead_state"]
         if not msgs and not replied_unreadable:
             continue  # never messaged (e.g. invite not accepted yet): ranking only
-        sig = thread_sig(person)
+        sig = thread_sig(person, cfg)
         prev = old.get(person["key"])
+        same = prev and (prev.get("sig") == sig or
+                         (not cfg.get("you_senders") and prev.get("sig") == legacy_sig(person)))
         # A rough card for someone who replied gets redrafted as soon as Claude is available.
         upgrade = claude and theirs and prev and prev.get("drafted_by") == "rules"
-        if prev and (prev.get("locked") or (prev.get("sig") == sig and not upgrade)):
+        if prev and (prev.get("locked") or (same and not upgrade)):
             cards.append(prev)
             continue
         card = {
@@ -1005,13 +1019,23 @@ def headshots(cards, people, env):
 MAX_PHOTO = 5 * 1024 * 1024
 
 
+class _HttpsOnly(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        if not newurl.startswith("https://"):
+            return None  # urllib then raises, so the plain-http hop is never requested
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+_photo_opener = urllib.request.build_opener(_HttpsOnly)
+
+
 def download(url, dest):
     """Fetch a photo over https only (never file:// or plain http), at most 5 MB."""
     if not re.match(r"^https://[^/\s]+/", url or ""):
         return False
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with _photo_opener.open(req, timeout=30) as r:
             if not r.geturl().startswith("https://"):
                 return False
             data = r.read(MAX_PHOTO + 1)
@@ -1049,7 +1073,7 @@ def esc(text):
 
 def linkedin_url(url):
     """The URL, escaped, if it's a linkedin.com page; otherwise ""."""
-    m = re.match(r"^https?://([^/?#\s]+)(/[^\s]*)?$", (url or "").strip())
+    m = re.match(r"^https?://([A-Za-z0-9.-]+)(/[^\s\\]*)?$", (url or "").strip())
     if not m:
         return ""
     host = m.group(1).lower()
