@@ -21,19 +21,25 @@ You need Python 3.9 or newer (on a Mac, run `python3 --version` and it will offe
 ```sh
 git clone https://github.com/dariaarzy/event-lookbook.git
 cd event-lookbook
-pip3 install anthropic   # for the Claude-written cards (see below)
+pip3 install -r requirements.txt   # the Anthropic SDK, for Claude-written cards (see below)
 python3 lookbook.py
 ```
 
 The first run asks five questions:
 
 1. **Your Lemlist API key**, from Lemlist > Settings > Integrations > API.
-2. **The campaign name.** Part of it is fine, and you can pick from a list if several match.
+2. **The campaign name.** Part of it is fine, and you can pick from a list if several match. If you ran more than one campaign for the event (say, one on LinkedIn and one by email), add the others when it asks.
 3. **The conference name**, the way people would write it in a message.
 4. **Your Anthropic API key**, from console.anthropic.com > API keys (see below).
 5. **A Crustdata API key**, which is optional and only used to find headshot photos. Press Enter to skip it and add photos yourself (see below).
 
-Then it pulls everything and writes `my-lookbook/index.html`.
+Then it pulls everything. Along the way it may ask up to three more things, each only once and only when it matters:
+
+- **Whether to include people outside the campaign** who mentioned the conference. It shows the line that mentions it, and you answer y or n for each, or "all" or "none" for everyone left.
+- **Whose lookbook this is**, if more than one person on your team sent the messages. A teammate's messages are then labelled as theirs, not yours.
+- **Your ideal buyer.** Claude suggests one from your outreach. Press Enter to accept it or type your own, since the ranking is only as good as this.
+
+Then it writes `my-lookbook/index.html`.
 
 ### Why the Anthropic key
 
@@ -41,14 +47,14 @@ Claude reads each thread to decide the stage and warmth, and writes the card. It
 
 ## Keeping it up to date
 
-Rerun `python3 lookbook.py` whenever new replies come in, for example each morning of the event. It only redrafts cards whose conversation has changed. It only asks about people outside the campaign it hasn't asked about before.
+Rerun `python3 lookbook.py` whenever new replies come in, for example each morning of the event. It only redrafts cards whose conversation has changed, plus any rough cards once an Anthropic key is available. It only asks about people outside the campaign it hasn't asked about before.
 
 | Command | What it does |
 | --- | --- |
 | `python3 lookbook.py` | Pull new replies and rebuild |
-| `python3 lookbook.py --offline` | Rebuild from the last pull, without calling any APIs, after you've edited something |
+| `python3 lookbook.py --offline` | Rebuild from saved data after you've edited something. It calls no APIs at all |
 | `python3 lookbook.py --review` | Decide again who outside the campaign to include |
-| `python3 lookbook.py --setup` | Answer the five questions again, e.g. for a different event |
+| `python3 lookbook.py --setup` | Answer the five questions again, e.g. for a different event. The old event's lookbook moves to `my-lookbook/previous/` |
 | `python3 lookbook.py --example` | Rebuild the sample in `example/` |
 
 ## Editing it by hand
@@ -56,6 +62,8 @@ Rerun `python3 lookbook.py` whenever new replies come in, for example each morni
 Everything the page shows is in `my-lookbook/people.json` (the cards) and `my-lookbook/ranking.json`. Edit either one, set `"locked": true` on anything you change so later runs leave it alone, and run `python3 lookbook.py --offline`.
 
 **To add someone Lemlist doesn't know about**, such as a contact from your own inbox or someone you met at a party, copy an existing card in `people.json`. Give it a new `key` and your details, and set `"locked": true`.
+
+To change the buyer the ranking uses, edit `buyer` in `my-lookbook/config.json` and rerun.
 
 Card fields:
 
@@ -73,7 +81,7 @@ Card fields:
 Photos are saved in `my-lookbook/headshots/`, named after each person, e.g. `jane-doe.jpg`. The name to use is the `slug` on their card in `people.json`. The tool checks three places:
 
 1. A photo you've put there yourself. It never replaces these.
-2. Lemlist's own photo, when the lead has one.
+2. Lemlist's own photo, when the lead has one (https only, up to 5 MB).
 3. Crustdata, looked up by LinkedIn URL, if you gave a key. Each person with a card who has no photo costs one lookup, and people Crustdata can't find aren't looked up again.
 
 Anyone without a photo gets their initials. On a Mac, downloaded photos are shrunk to 320px so the page stays small.
@@ -83,12 +91,12 @@ Anyone without a photo gets their initials. On a Mac, downloaded photos are shru
 It reads everything in Lemlist:
 - your campaign's leads
 - each lead's full LinkedIn and email thread, including replies you typed by hand in Lemlist
-- your other Lemlist conversations from the last 90 days
+- your other Lemlist conversations from the last 90 days, including emails people sent outside a sequence
 
 It can't see anything outside Lemlist, such as your own Gmail, LinkedIn messages sent outside Lemlist, Slack, or the event's networking app. Add those people by hand as above.
 
 ## Privacy
 
-Your keys, the conversations and the lookbook stay on your computer in `my-lookbook/`, which git ignores. The conversations are sent to Anthropic to write the cards. When you use Crustdata, only the LinkedIn URLs of people with cards are sent there.
+Your keys, the conversations and the lookbook stay on your computer in `my-lookbook/`, which git ignores and only your user account can read. The conversations are sent to Anthropic to write the cards. When you use Crustdata, only the LinkedIn URLs of people with cards are sent there.
 
 The lookbook contains other people's messages and phone numbers, so share it only with the people it's for.
