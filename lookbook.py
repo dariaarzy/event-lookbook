@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Turn a Lemlist outreach campaign into a one-page lookbook for a conference.
 
-    python3 lookbook.py              first run asks four questions, then builds
+    python3 lookbook.py              first run asks five questions, then builds
     python3 lookbook.py              later runs pull new replies and rebuild
     python3 lookbook.py --setup      answer the questions again
     python3 lookbook.py --offline    rebuild from what was last pulled, no API calls
@@ -99,7 +99,7 @@ def ask(prompt, secret=False, optional=False):
 
 
 def setup(env, cfg):
-    say("\nFour questions, then it builds.\n")
+    say("\nFive questions, then it builds.\n")
     while True:
         key = ask("1. Lemlist API key (Lemlist > Settings > Integrations > API): ", secret=True)
         team = Lemlist(key).team()
@@ -136,7 +136,24 @@ def setup(env, cfg):
         say("   That's too short to search for. Use the name people would type.")
     say("   Other conversations that mention it get added too.")
 
-    say("4. Crustdata API key (optional). It's only used to find headshot photos.")
+    say("4. Anthropic API key, from console.anthropic.com > API keys. Claude reads each conversation")
+    say("   to write the cards and ranks the campaign. Without it the cards are a rough first pass.")
+    have = env.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY")
+    while True:
+        ak = ask("   Paste it, or press Enter to " + ("keep the one already set: " if have else "skip: "),
+                 secret=True, optional=True) or have
+        if not ak:
+            say("   Skipped. You can add ANTHROPIC_API_KEY=... to my-lookbook/.env later and rerun.")
+            break
+        ok, why = check_anthropic_key(ak)
+        if ok:
+            say("   Connected to Anthropic." if why is None else f"   Saved. {why}")
+            break
+        say(f"   {why} Try again.")
+        have = None
+    env["ANTHROPIC_API_KEY"] = ak or ""
+
+    say("5. Crustdata API key (optional). It's only used to find headshot photos.")
     ck = ask("   Paste it, or press Enter to skip and add photos yourself: ", secret=True, optional=True)
     if not ck:
         say(f"   Skipped. Drop photos into {os.path.relpath(p('headshots'))}/ named after each person,")
@@ -583,6 +600,20 @@ class Claude:
         if msg.stop_reason == "max_tokens":
             raise RuntimeError("Claude's answer was cut off")
         return json.loads(next(b.text for b in msg.content if b.type == "text"))
+
+
+def check_anthropic_key(key):
+    """(ok, note). A rejected key is not ok; if the SDK isn't installed the key
+    can't be checked yet, so it's kept with a note saying how to install it."""
+    try:
+        import anthropic
+    except ImportError:
+        return True, "Run pip3 install anthropic so it can be used."
+    try:
+        anthropic.Anthropic(api_key=key).models.list(limit=1)
+    except anthropic.AuthenticationError:
+        return False, "Anthropic didn't accept that key."
+    return True, None
 
 
 def claude_or_none(env):

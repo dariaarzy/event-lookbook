@@ -21,23 +21,23 @@ You need Python 3.9 or newer (on a Mac, run `python3 --version` and it will offe
 ```sh
 git clone https://github.com/dariaarzy/event-lookbook.git
 cd event-lookbook
-pip3 install anthropic        # for the Claude-written cards (see below)
-export ANTHROPIC_API_KEY=...  # from console.anthropic.com
+pip3 install anthropic   # for the Claude-written cards (see below)
 python3 lookbook.py
 ```
 
-The first run asks four questions:
+The first run asks five questions:
 
 1. **Your Lemlist API key**, from Lemlist > Settings > Integrations > API.
 2. **The campaign name.** Part of it is fine, and you can pick from a list if several match.
 3. **The conference name**, the way people would write it in a message.
-4. **A Crustdata API key**, which is optional and only used to find headshot photos. Press Enter to skip it and add photos yourself (see below).
+4. **Your Anthropic API key**, from console.anthropic.com > API keys (see below).
+5. **A Crustdata API key**, which is optional and only used to find headshot photos. Press Enter to skip it and add photos yourself (see below).
 
 Then it pulls everything and writes `my-lookbook/index.html`.
 
 ### Why the Anthropic key
 
-Claude reads each thread to decide the stage and warmth, and writes the card. It also ranks the campaign. Without a key you still get a lookbook, but a rough one: anyone who replied lands under "Friendly" with their latest message, there's no ranking, and you sort the rest by hand. A lookbook for about 50 people costs a few dollars in API usage. You can also put the key in `my-lookbook/.env` as `ANTHROPIC_API_KEY=...` rather than exporting it.
+Claude reads each thread to decide the stage and warmth, and writes the card. It also ranks the campaign. Without a key you still get a lookbook, but a rough one: anyone who replied lands under "Friendly" with their latest message, there's no ranking, and you sort the rest by hand. A lookbook for about 50 people costs a few dollars in API usage. If you skip the question, you can add `ANTHROPIC_API_KEY=...` to `my-lookbook/.env` later and rerun.
 
 ## Keeping it up to date
 
@@ -48,7 +48,7 @@ Rerun `python3 lookbook.py` whenever new replies come in, for example each morni
 | `python3 lookbook.py` | Pull new replies and rebuild |
 | `python3 lookbook.py --offline` | Rebuild from the last pull, without calling any APIs, after you've edited something |
 | `python3 lookbook.py --review` | Decide again who outside the campaign to include |
-| `python3 lookbook.py --setup` | Answer the four questions again, e.g. for a different event |
+| `python3 lookbook.py --setup` | Answer the five questions again, e.g. for a different event |
 | `python3 lookbook.py --example` | Rebuild the sample in `example/` |
 
 ## Editing it by hand
