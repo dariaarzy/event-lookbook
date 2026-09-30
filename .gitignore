@@ -1,0 +1,11 @@
+# Your event: keys, conversations, cards and output
+my-lookbook/
+.env
+
+# Build output of the sample (the HTML and preview are committed)
+example/*.pdf
+example/headshots/
+
+__pycache__/
+*.pyc
+.DS_Store

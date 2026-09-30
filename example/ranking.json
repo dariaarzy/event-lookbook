@@ -1,0 +1,81 @@
+{
+  "sig": "",
+  "locked": true,
+  "buyer": "Operations or data leader at a 50-500 person company that runs on spreadsheets today.",
+  "ranked": [
+    {
+      "key": "c2",
+      "name": "Daniel Reyes",
+      "title": "VP Operations",
+      "company": "Northgate Freight",
+      "linkedin": "https://www.linkedin.com/in/example-daniel",
+      "why": "Runs ops at a 300-person freight firm; said yes to meeting."
+    },
+    {
+      "key": "c1",
+      "name": "Maya Okafor",
+      "title": "Founder & CEO",
+      "company": "Brightwater Analytics",
+      "linkedin": "https://www.linkedin.com/in/example-maya",
+      "why": "Founder of a 60-person analytics shop; coffee booked Wednesday."
+    },
+    {
+      "key": "c3",
+      "name": "Priya Natarajan",
+      "title": "Head of Data",
+      "company": "Coastline Health",
+      "linkedin": "https://www.linkedin.com/in/example-priya",
+      "why": "Owns data at a regional health group; comparing vendors now."
+    },
+    {
+      "key": "c6",
+      "name": "Alex Chen",
+      "title": "Director of IT",
+      "company": "Mariner Logistics",
+      "linkedin": "https://www.linkedin.com/in/example-alex",
+      "why": "IT lead at a mid-size logistics firm; hasn't replied yet."
+    },
+    {
+      "key": "c8",
+      "name": "Hannah Brooks",
+      "title": "Operations Manager",
+      "company": "Pinecrest Supply",
+      "linkedin": "https://www.linkedin.com/in/example-hannah",
+      "why": "Right function, but manager-level; invite not accepted yet."
+    },
+    {
+      "key": "c4",
+      "name": "Tom Lindqvist",
+      "title": "CTO",
+      "company": "Fjord Robotics",
+      "linkedin": "https://www.linkedin.com/in/example-tom",
+      "why": "Technical buyer at a 40-person robotics startup; friendly."
+    },
+    {
+      "key": "c7",
+      "name": "Sofia Marino",
+      "title": "COO",
+      "company": "Lantern Foods",
+      "linkedin": "https://www.linkedin.com/in/example-sofia",
+      "why": "COO, but a 12-person company is below the target size."
+    },
+    {
+      "key": "c5",
+      "name": "Grace Mbeki",
+      "title": "Partner",
+      "company": "Summit Ridge Ventures",
+      "linkedin": "https://www.linkedin.com/in/example-grace",
+      "why": "Investor, not a buyer."
+    }
+  ],
+  "not_enough_info": [
+    {
+      "key": "c9",
+      "name": "Jordan Ellis",
+      "title": "",
+      "company": "",
+      "linkedin": "https://www.linkedin.com/in/example-jordan",
+      "why": "No title or company on file."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "conference": "Harborline Summit 2026",
+  "campaign": {
+    "id": "cam_example",
+    "name": "Harborline Summit - coffee invites"
+  },
+  "team": {
+    "id": "tea_example",
+    "name": "Example Team"
+  }
+}

@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harborline Summit 2026 Lookbook</title>
+
+<style>
+  :root {
+    --bg: #F3F6F4;
+    --surface: #FFFFFF;
+    --surface-2: #E8EFEC;
+    --ink: #1D2A2E;
+    --ink-muted: #5B6B6E;
+    --border: #D7E0DC;
+    --accent: #0F6E70;
+    --accent-soft: #D3EAE6;
+    --hot: #B8412A;
+    --hot-soft: #F7DED6;
+    --warm: #9A6F12;
+    --warm-soft: #F3E7C6;
+    --cool: #3A6A8C;
+    --cool-soft: #DBE6EE;
+    --neutral: #6B7470;
+    --neutral-soft: #E6EAE8;
+    --cold: #4A5783;
+    --cold-soft: #E0E3EF;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121A1B;
+      --surface: #1A2425;
+      --surface-2: #213033;
+      --ink: #E9F0EE;
+      --ink-muted: #A3B3B1;
+      --border: #2D3D3F;
+      --accent: #5CC6C0;
+      --accent-soft: #173739;
+      --hot: #FF8E70;
+      --hot-soft: #45261E;
+      --warm: #EDC36B;
+      --warm-soft: #3D321A;
+      --cool: #8BBADB;
+      --cool-soft: #1F3341;
+      --neutral: #A3B3B1;
+      --neutral-soft: #263133;
+      --cold: #AAB5DA;
+      --cold-soft: #242A3D;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121A1B;
+    --surface: #1A2425;
+    --surface-2: #213033;
+    --ink: #E9F0EE;
+    --ink-muted: #A3B3B1;
+    --border: #2D3D3F;
+    --accent: #5CC6C0;
+    --accent-soft: #173739;
+    --hot: #FF8E70;
+    --hot-soft: #45261E;
+    --warm: #EDC36B;
+    --warm-soft: #3D321A;
+    --cool: #8BBADB;
+    --cool-soft: #1F3341;
+    --neutral: #A3B3B1;
+    --neutral-soft: #263133;
+    --cold: #AAB5DA;
+    --cold-soft: #242A3D;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px 80px; }
+
+  /* ---- Masthead ---- */
+  .masthead {
+    background: linear-gradient(180deg, var(--accent-soft), var(--bg) 85%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 20px 32px;
+    margin-bottom: 40px;
+  }
+  .masthead-inner { max-width: 880px; margin: 0 auto; }
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    line-height: 1.1;
+    margin: 0 0 12px;
+    text-wrap: balance;
+    font-weight: 600;
+  }
+  .masthead p.sub {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 1.02rem;
+    max-width: 62ch;
+  }
+  /* ---- To-dos ---- */
+  .todos {
+    background: var(--hot-soft);
+    border: 2px solid var(--hot);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+  }
+  .todos h2 {
+    margin: 0 0 8px;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--hot);
+  }
+  .todos ol { margin: 0; padding-left: 1.3em; font-size: 1rem; }
+  .todos li { padding: 4px 0; }
+  .todos a { color: var(--ink); }
+  .card.has-todo { border: 2px solid var(--hot); border-left-width: 4px; }
+
+  /* ---- Sections ---- */
+  section.group { margin-bottom: 52px; }
+  .group-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+  }
+  .group-head h2 {
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    font-size: 1.4rem;
+    margin: 0;
+    font-weight: 600;
+  }
+  .group-count {
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    text-align: right;
+  }
+  .group-note {
+    margin: -6px 0 22px;
+    padding: 12px 16px;
+    background: var(--surface-2);
+    border-left: 3px solid var(--accent);
+    font-size: 0.9rem;
+    color: var(--ink);
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* ---- Cards ---- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 18px 16px;
+    border-left-width: 4px;
+    border-left-style: solid;
+  }
+  .card.hot { border-left-color: var(--hot); }
+  .card.warm { border-left-color: var(--warm); }
+  .card.lukewarm { border-left-color: var(--cool); }
+  .card.pending { border-left-color: var(--neutral); }
+  .card.cold { border-left-color: var(--cold); }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .card-id {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+  .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+  .avatar.initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 0.02em;
+  }
+  .card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .card .role {
+    margin: 2px 0 0;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+  }
+  .badge {
+    flex-shrink: 0;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge.hot { background: var(--hot-soft); color: var(--hot); }
+  .badge.warm { background: var(--warm-soft); color: var(--warm); }
+  .badge.lukewarm { background: var(--cool-soft); color: var(--cool); }
+  .badge.pending { background: var(--neutral-soft); color: var(--neutral); }
+  .badge.cold { background: var(--cold-soft); color: var(--cold); }
+
+  .tear {
+    border-top: 1px dashed var(--border);
+    margin: 12px 0;
+  }
+
+  .context {
+    font-size: 0.88rem;
+    color: var(--ink);
+    margin: 0 0 12px;
+  }
+  .context .flag {
+    display: block;
+    margin-top: 6px;
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .card-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .pill {
+    font-size: 0.76rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .pill.phone-given { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  .li-link {
+    font-size: 0.8rem;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+  }
+  .li-link.disabled {
+    color: var(--ink-muted);
+    border-bottom-style: dotted;
+  }
+
+  /* ---- Ranking ---- */
+  .fit-h { font-size: 1rem; margin: 28px 0 8px; }
+  .fit-h span { font-weight: 400; font-size: 0.82rem; color: var(--ink-muted); margin-left: 6px; }
+  table.rank { width: 100%; border-collapse: collapse; font-size: 0.84rem; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  @media (min-width: 701px) {
+    table.rank { table-layout: fixed; }
+    table.rank th:nth-child(1) { width: 3em; }
+    table.rank th:nth-child(2) { width: 30%; }
+    table.rank th:nth-child(3) { width: 22%; }
+  }
+  table.rank th { text-align: left; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-muted); padding: 8px 10px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+  table.rank td { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.rank tr:last-child td { border-bottom: 0; }
+  table.rank .rk { color: var(--ink-muted); font-variant-numeric: tabular-nums; width: 2.2em; }
+  table.rank .who strong { display: block; }
+  table.rank .who a { color: var(--ink); }
+  table.rank .ttl { display: block; color: var(--ink-muted); font-size: 0.78rem; }
+  table.rank .in-lb { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 999px; font-size: 0.64rem;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--accent-soft); color: var(--accent); vertical-align: 1px; }
+  table.rank .nt { color: var(--ink-muted); }
+  table.rank .who .li-link { display: inline-block; margin-top: 3px; font-size: 0.74rem; }
+
+  footer.meta {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+  }
+  footer.meta p { margin: 0 0 8px; }
+
+  @page { margin: 12mm; }
+  @media print {
+    body { font-size: 13px; background: #fff; }
+    .masthead { padding: 22px 20px 18px; margin: 0 20px 20px; border-radius: 6px; border-bottom: 0; }
+    .masthead-inner { max-width: none; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .card { break-inside: avoid; page-break-inside: avoid; }
+    section.group { margin-bottom: 28px; }
+    .avatar { width: 56px; height: 56px; }
+    .avatar.initials { font-size: 1rem; }
+    .ranking { break-before: page; }
+  }
+
+  @media (max-width: 700px) {
+    table.rank thead { display: none; }
+    table.rank, table.rank tbody, table.rank tr, table.rank td { display: block; width: 100%; }
+    table.rank tr { padding: 10px 12px; border-bottom: 1px solid var(--border); display: grid;
+      grid-template-columns: 2em 1fr 1fr; gap: 2px 8px; }
+    table.rank td { border: 0; padding: 0; }
+    table.rank .rk { grid-row: span 3; }
+    table.rank .who, table.rank .co, table.rank .nt { grid-column: 2 / 4; }
+  }
+  @media print { table.rank tr { break-inside: avoid; } }
+  @media (max-width: 520px) {
+    .wrap { padding: 0 16px 64px; }
+    .masthead { padding: 36px 16px 28px; }
+    .grid { grid-template-columns: 1fr; }
+    .avatar { width: 72px; height: 72px; }
+    .group-head { flex-direction: column; gap: 4px; }
+    .group-count { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">Sam Rivera &middot; Harborline Summit 2026</p>
+    <h1>Harborline Summit 2026 Lookbook</h1>
+    <p class="sub">Everyone at Harborline Summit 2026 you've been in touch with: who's booked, who said yes but still needs a time, and who hasn't replied.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="todos" aria-label="To-dos"><h2>To-dos</h2><ol><li><a href="#maya-okafor"><strong>Maya Okafor</strong></a> &mdash; Meet her at the lobby café Wed 10:15. She has a hard stop at 11.</li><li><a href="#daniel-reyes"><strong>Daniel Reyes</strong></a> &mdash; Text him Tuesday morning to pick a time.</li></ol></section>
+
+
+  <section class="group">
+    <div class="group-head">
+      <h2>Booked</h2>
+      <span class="group-count">1 person &middot; time and place set</span>
+    </div>
+    <div class="grid">
+      <article class="card hot has-todo" id="maya-okafor">
+        <div class="card-top">
+          <div class="card-id"><div class="avatar initials" role="img" aria-label="Maya Okafor">MO</div><div>
+            <h3>Maya Okafor</h3>
+            <p class="role">Founder &amp; CEO &middot; Brightwater Analytics</p>
+          </div></div>
+          <span class="badge hot">Hot</span>
+        </div>
+        <div class="tear"></div>
+        <p class="context"><strong>Coffee Wed 10:15 AM at the lobby café.</strong> She replied the same day: <strong>&quot;Wednesday morning works, I&#x27;m speaking at 11 so let&#x27;s do early.&quot;</strong> Calendar invite sent Sep 9.<span class="flag">Next: Meet her at the lobby café Wed 10:15. She has a hard stop at 11.</span></p>
+        <div class="card-foot">
+          <a class="li-link" href="https://www.linkedin.com/in/example-maya" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+          <span class="pill phone-given">Their cell: (555) 010-4471</span>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="group">
+    <div class="group-head">
+      <h2>Said yes &mdash; pin down a time</h2>
+      <span class="group-count">2 people &middot; agreed to meet, no time yet</span>
+    </div>
+    <div class="grid">
+      <article class="card hot has-todo" id="daniel-reyes">
+        <div class="card-top">
+          <div class="card-id"><div class="avatar initials" role="img" aria-label="Daniel Reyes">DR</div><div>
+            <h3>Daniel Reyes</h3>
+            <p class="role">VP Operations &middot; Northgate Freight</p>
+          </div></div>
+          <span class="badge hot">Hot</span>
+        </div>
+        <div class="tear"></div>
+        <p class="context">Asked for time at the Summit, he said: <strong>&quot;Yes! Text me Tuesday and we&#x27;ll find a slot between sessions.&quot;</strong> Nothing set since.<span class="flag">Next: Text him Tuesday morning to pick a time.</span></p>
+        <div class="card-foot">
+          <a class="li-link" href="https://www.linkedin.com/in/example-daniel" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+          <span class="pill phone-given">You shared your number</span>
+        </div>
+      </article>
+      <article class="card warm" id="priya-natarajan">
+        <div class="card-top">
+          <div class="card-id"><div class="avatar initials" role="img" aria-label="Priya Natarajan">PN</div><div>
+            <h3>Priya Natarajan</h3>
+            <p class="role">Head of Data &middot; Coastline Health</p>
+          </div></div>
+          <span class="badge warm">Warm</span>
+        </div>
+        <div class="tear"></div>
+        <p class="context"><strong>&quot;Happy to meet — how are you different from the tools we already use?&quot;</strong> You sent a short comparison on Sep 12; no reply since.<span class="flag">Next: Bring the one-page comparison and suggest a specific time.</span></p>
+        <div class="card-foot">
+          <a class="li-link" href="https://www.linkedin.com/in/example-priya" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+          <span class="pill">No number exchanged</span>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="group">
+    <div class="group-head">
+      <h2>Friendly &mdash; catch them in person</h2>
+      <span class="group-count">2 people &middot; happy to connect, no plan to meet</span>
+    </div>
+    <div class="grid">
+      <article class="card warm" id="tom-lindqvist">
+        <div class="card-top">
+          <div class="card-id"><div class="avatar initials" role="img" aria-label="Tom Lindqvist">TL</div><div>
+            <h3>Tom Lindqvist</h3>
+            <p class="role">CTO &middot; Fjord Robotics</p>
+          </div></div>
+          <span class="badge warm">Warm</span>
+        </div>
+        <div class="tear"></div>
+        <p class="context"><strong>&quot;I&#x27;m terrible at planning at events — just grab me if you see me.&quot;</strong> He&#x27;ll be at the robotics pavilion most of Thursday.<span class="flag">Next: Find him at the robotics pavilion on Thursday.</span></p>
+        <div class="card-foot">
+          <a class="li-link" href="https://www.linkedin.com/in/example-tom" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+          <span class="pill">No number exchanged</span>
+        </div>
+      </article>
+      <article class="card lukewarm" id="grace-mbeki">
+        <div class="card-top">
+          <div class="card-id"><div class="avatar initials" role="img" aria-label="Grace Mbeki">GM</div><div>
+            <h3>Grace Mbeki</h3>
+            <p class="role">Partner &middot; Summit Ridge Ventures</p>
+          </div></div>
+          <span class="badge lukewarm">Lukewarm</span>
+        </div>
+        <div class="tear"></div>
+        <p class="context">Investor, not a buyer. Replied <strong>&quot;Would be nice to say hi&quot;</strong> but offered no time. Worth a hello, low priority.</p>
+        <div class="card-foot">
+          <a class="li-link" href="https://www.linkedin.com/in/example-grace" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+          <span class="pill">No number exchanged</span>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="group">
+    <div class="group-head">
+      <h2>Invited &mdash; no reply yet</h2>
+      <span class="group-count">2 people &middot; you asked, they haven't answered</span>
+    </div>
+    <div class="grid">
+      <article class="card cold" id="alex-chen">
+        <div class="card-top">
+          <div class="card-id"><div class="avatar initials" role="img" aria-label="Alex Chen">AC</div><div>
+            <h3>Alex Chen</h3>
+            <p class="role">Director of IT &middot; Mariner Logistics</p>
+          </div></div>
+          <span class="badge cold">Cold</span>
+        </div>
+        <div class="tear"></div>
+        <p class="context">You messaged on Sep 14 (LinkedIn). No reply yet.</p>
+        <div class="card-foot">
+          <a class="li-link" href="https://www.linkedin.com/in/example-alex" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+          <span class="pill">No number exchanged</span>
+        </div>
+      </article>
+      <article class="card cold" id="sofia-marino">
+        <div class="card-top">
+          <div class="card-id"><div class="avatar initials" role="img" aria-label="Sofia Marino">SM</div><div>
+            <h3>Sofia Marino</h3>
+            <p class="role">COO &middot; Lantern Foods</p>
+          </div></div>
+          <span class="badge cold">Cold</span>
+        </div>
+        <div class="tear"></div>
+        <p class="context">You messaged on Sep 15 (email). No reply yet.</p>
+        <div class="card-foot">
+          <a class="li-link" href="https://www.linkedin.com/in/example-sofia" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+          <span class="pill">No number exchanged</span>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="group ranking" id="ranking">
+    <div class="group-head">
+      <h2>Everyone in the campaign &mdash; ranked</h2>
+      <span class="group-count">8 ranked &middot; 1 not enough info</span>
+    </div>
+    <p class="group-note">Ordered by how close each person is to the buyer your outreach targets:
+      <strong>Operations or data leader at a 50-500 person company that runs on spreadsheets today.</strong> Ties go to people already talking to you. Drafted by Claude
+      from Lemlist's titles and companies, so give the reasons a sanity check.</p>
+    <table class="rank"><thead><tr><th>#</th><th>Name</th><th>Company</th><th>Why here</th></tr></thead><tbody>
+          <tr>
+            <td class="rk">1</td>
+            <td class="who"><strong><a href="#daniel-reyes">Daniel Reyes</a><span class="in-lb">card</span></strong><span class="ttl">VP Operations</span><a class="li-link" href="https://www.linkedin.com/in/example-daniel" target="_blank" rel="noopener">LinkedIn &#8599;</a></td>
+            <td class="co">Northgate Freight</td>
+            <td class="nt">Runs ops at a 300-person freight firm; said yes to meeting.</td>
+          </tr>
+          <tr>
+            <td class="rk">2</td>
+            <td class="who"><strong><a href="#maya-okafor">Maya Okafor</a><span class="in-lb">card</span></strong><span class="ttl">Founder &amp; CEO</span><a class="li-link" href="https://www.linkedin.com/in/example-maya" target="_blank" rel="noopener">LinkedIn &#8599;</a></td>
+            <td class="co">Brightwater Analytics</td>
+            <td class="nt">Founder of a 60-person analytics shop; coffee booked Wednesday.</td>
+          </tr>
+          <tr>
+            <td class="rk">3</td>
+            <td class="who"><strong><a href="#priya-natarajan">Priya Natarajan</a><span class="in-lb">card</span></strong><span class="ttl">Head of Data</span><a class="li-link" href="https://www.linkedin.com/in/example-priya" target="_blank" rel="noopener">LinkedIn &#8599;</a></td>
+            <td class="co">Coastline Health</td>
+            <td class="nt">Owns data at a regional health group; comparing vendors now.</td>
+          </tr>
+          <tr>
+            <td class="rk">4</td>
+            <td class="who"><strong><a href="#alex-chen">Alex Chen</a><span class="in-lb">card</span></strong><span class="ttl">Director of IT</span><a class="li-link" href="https://www.linkedin.com/in/example-alex" target="_blank" rel="noopener">LinkedIn &#8599;</a></td>
+            <td class="co">Mariner Logistics</td>
+            <td class="nt">IT lead at a mid-size logistics firm; hasn&#x27;t replied yet.</td>
+          </tr>
+          <tr>
+            <td class="rk">5</td>
+            <td class="who"><strong>Hannah Brooks</strong><span class="ttl">Operations Manager</span><a class="li-link" href="https://www.linkedin.com/in/example-hannah" target="_blank" rel="noopener">LinkedIn &#8599;</a></td>
+            <td class="co">Pinecrest Supply</td>
+            <td class="nt">Right function, but manager-level; invite not accepted yet.</td>
+          </tr>
+          <tr>
+            <td class="rk">6</td>
+            <td class="who"><strong><a href="#tom-lindqvist">Tom Lindqvist</a><span class="in-lb">card</span></strong><span class="ttl">CTO</span><a class="li-link" href="https://www.linkedin.com/in/example-tom" target="_blank" rel="noopener">LinkedIn &#8599;</a></td>
+            <td class="co">Fjord Robotics</td>
+            <td class="nt">Technical buyer at a 40-person robotics startup; friendly.</td>
+          </tr>
+          <tr>
+            <td class="rk">7</td>
+            <td class="who"><strong><a href="#sofia-marino">Sofia Marino</a><span class="in-lb">card</span></strong><span class="ttl">COO</span><a class="li-link" href="https://www.linkedin.com/in/example-sofia" target="_blank" rel="noopener">LinkedIn &#8599;</a></td>
+            <td class="co">Lantern Foods</td>
+            <td class="nt">COO, but a 12-person company is below the target size.</td>
+          </tr>
+          <tr>
+            <td class="rk">8</td>
+            <td class="who"><strong><a href="#grace-mbeki">Grace Mbeki</a><span class="in-lb">card</span></strong><span class="ttl">Partner</span><a class="li-link" href="https://www.linkedin.com/in/example-grace" target="_blank" rel="noopener">LinkedIn &#8599;</a></td>
+            <td class="co">Summit Ridge Ventures</td>
+            <td class="nt">Investor, not a buyer.</td>
+          </tr></tbody></table>
+    <h3 class="fit-h">Not enough info <span>1 &middot; too little reliable data to rank</span></h3>
+    <table class="rank"><thead><tr><th>#</th><th>Name</th><th>Company</th><th>Why here</th></tr></thead><tbody>
+          <tr>
+            <td class="rk">&ndash;</td>
+            <td class="who"><strong>Jordan Ellis</strong><span class="ttl"></span><a class="li-link" href="https://www.linkedin.com/in/example-jordan" target="_blank" rel="noopener">LinkedIn &#8599;</a></td>
+            <td class="co"></td>
+            <td class="nt">No title or company on file.</td>
+          </tr></tbody></table>
+  </section>
+
+  <footer class="meta">
+    <p>Sample data: every person and company here is made up.</p>
+    <p>Warmth: <strong>Hot</strong> = a time or place is set, or they're pushing to meet &middot; <strong>Warm</strong> = said yes &middot; <strong>Lukewarm</strong> = polite, low priority &middot; <strong>Cold</strong> = no reply yet.</p>
+  </footer>
+
+</div>
+</body>
+</html>
