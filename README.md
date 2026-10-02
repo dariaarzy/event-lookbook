@@ -33,11 +33,11 @@ The first run asks five questions:
 4. **Your Anthropic API key**, from console.anthropic.com > API keys (see below).
 5. **A Crustdata API key**, which is optional and only used to find headshot photos. Press Enter to skip it and add photos yourself (see below).
 
-Then it pulls everything. Along the way it may ask up to three more things, each only once and only when it matters:
+Then it pulls everything. Along the way it asks a few more things, each only once:
 
-- **Whether to include people outside the campaign** who mentioned the conference. It shows the line that mentions it, and you answer y or n for each, or "all" or "none" for everyone left.
-- **Whose lookbook this is**, if more than one person on your team sent the messages. A teammate's messages are then labelled as theirs, not yours.
-- **Your ideal buyer.** Claude suggests one from your outreach. Press Enter to accept it or type your own, since the ranking is only as good as this.
+- **Whether to include people outside the campaign**, only if some mentioned the conference. It shows the line that mentions it, and you answer y or n for each, or "all" or "none" for everyone left.
+- **Whose lookbook this is**, only if more than one person on your team sent the messages. A teammate's messages are then labelled as theirs, not yours.
+- **Your ideal buyer (ICP).** Claude works it out from your outreach and shows it to you. Press Enter if it's right, or say what to change ("also COOs", "US only, 20-200 staff") and it shows the revised version, until you're happy. The ranking is only as good as this.
 
 Then it writes `my-lookbook/index.html`.
 
@@ -63,7 +63,7 @@ Everything the page shows is in `my-lookbook/people.json` (the cards) and `my-lo
 
 **To add someone Lemlist doesn't know about**, such as a contact from your own inbox or someone you met at a party, copy an existing card in `people.json`. Give it a new `key` and your details, and set `"locked": true`.
 
-To change the buyer the ranking uses, edit `buyer` in `my-lookbook/config.json` and rerun.
+The ideal buyer you confirmed is shown at the top of the ranking on the page. To change it later, edit `buyer` in `my-lookbook/config.json` and rerun.
 
 Card fields:
 
